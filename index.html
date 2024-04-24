@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calculator</title>
+    <link rel="stylesheet" href="style.css" />
+    <script
+      src="https://kit.fontawesome.com/6505a1c114.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <div class="calculator">
+      <div class="display">
+        <input type="text" value="0" name="display" id="display" />
+      </div>
+      <div class="calc-btns">
+        <button class="btn top">AC</button>
+        <button class="btn top" id="backspace">
+          <i class="fa-solid fa-delete-left" id="back-btn"></i>
+        </button>
+
+        <button class="btn top" data-operator="/">/</button>
+        <button class="btn top" data-operator="%">%</button>
+      </div>
+      <div class="calc-btns">
+        <button class="btn 1">7</button>
+        <button class="btn 1">8</button>
+        <button class="btn 1">9</button>
+        <button class="btn operator" data-operator="*">*</button>
+      </div>
+      <div class="calc-btns">
+        <button class="btn 2">4</button>
+        <button class="btn 2">5</button>
+        <button class="btn 2">6</button>
+        <button class="btn operator" data-operator="-">-</button>
+      </div>
+      <div class="calc-btns">
+        <button class="btn 3">1</button>
+        <button class="btn 3">2</button>
+        <button class="btn 3">3</button>
+        <button class="btn operator" data-operator="+">+</button>
+      </div>
+
+      <div class="calc-btns">
+        <button class="btn 4">0</button>
+        <button class="btn 4">.</button>
+        <button class="btn equals">=</button>
+      </div>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
