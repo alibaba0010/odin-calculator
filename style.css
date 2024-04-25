@@ -36,7 +36,7 @@ main {
   background-color: aliceblue;
   padding: 10px;
   margin-bottom: 5px;
-  height: 10px;
+  height: 18px;
   width: 100%;
   border-radius: 3px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
@@ -66,6 +66,10 @@ main {
   margin: 3px 1px;
   width: 180px;
   background-color: rgb(42, 40, 60);
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .btn:active,
 .operator:active {
@@ -77,3 +81,8 @@ main {
 /* #back-btn {
   color: aliceblue;
 } */
+#display {
+  border: 0px;
+  outline: 0px;
+  font-size: 12px;
+}
