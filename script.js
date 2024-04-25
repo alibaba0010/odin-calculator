@@ -1,16 +1,20 @@
 let firstNumber = 0;
 let secondNumber = 0;
-let operator = null;
+// let operator = null;
+let value1 = 0;
+let value2 = "";
+let operator = "";
+let result = 0;
 const btns = document.querySelectorAll(".btn");
 const display = document.getElementById("display");
 let clearDisplay = false;
+console.log(display.value);
 
 btns.forEach((btn) => {
   const btnValue = btn.textContent;
-  console.log(btnValue);
   btn.addEventListener("click", () => {
-    if (btnValue === "=") {
-      console.log("= clicked");
+    if (isNaN(btnValue) && btnValue !== ".") {
+      display.btnValue = "enter a number";
     }
   });
 });
