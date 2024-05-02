@@ -8,11 +8,11 @@ let result = 0;
 const btns = document.querySelectorAll(".btn");
 const display = document.getElementById("display");
 let clearDisplay = false;
-console.log(display.value);
 
 btns.forEach((btn) => {
   const btnValue = btn.textContent;
   btn.addEventListener("click", () => {
+    display.value += btnValue;
     if (isNaN(btnValue) && btnValue !== ".") {
       display.btnValue = "enter a number";
     }
