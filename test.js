@@ -1,149 +1,127 @@
-document.addEventListener("DOMContentLoaded", () => {
-  lucide.createIcons();
-
-  const calculator = {
-    displayValue: "0",
-    firstOperand: null,
-    waitingForSecondOperand: false,
-    operator: null,
-  };
-
-  function updateDisplay() {
-    const display = document.querySelector(".current-operand");
-    display.textContent = calculator.displayValue;
+class Calculator {
+  constructor(previousOperandElement, currentOperandElement) {
+    this.previousOperandElement = previousOperandElement;
+    this.currentOperandElement = currentOperandElement;
+    this.clear();
   }
 
-  function inputDigit(digit) {
-    const { displayValue, waitingForSecondOperand } = calculator;
+  clear() {
+    this.currentOperand = "";
+    this.previousOperand = "";
+    this.operation = undefined;
+  }
 
-    if (waitingForSecondOperand === true) {
-      calculator.displayValue = digit;
-      calculator.waitingForSecondOperand = false;
+  appendNumber(number) {
+    if (number === "." && this.currentOperand.includes(".")) return;
+    this.currentOperand = this.currentOperand.toString() + number.toString();
+  }
+
+  chooseOperation(operation) {
+    if (this.currentOperand === "") return;
+    if (this.previousOperand !== "") {
+      this.compute();
+    }
+    this.operation = operation;
+    this.previousOperand = this.currentOperand;
+    this.currentOperand = "";
+  }
+
+  compute() {
+    let computation;
+    const prev = parseFloat(this.previousOperand);
+    const current = parseFloat(this.currentOperand);
+    if (isNaN(prev) || isNaN(current)) return;
+    switch (this.operation) {
+      case "+":
+        computation = prev + current;
+        break;
+      case "-":
+        computation = prev - current;
+        break;
+      case "×":
+        computation = prev * current;
+        break;
+      case "÷":
+        computation = prev / current;
+        break;
+      default:
+        return;
+    }
+    this.currentOperand = computation;
+    this.operation = undefined;
+    this.previousOperand = "";
+  }
+
+  updateDisplay() {
+    this.currentOperandElement.innerText = this.getDisplayNumber(
+      this.currentOperand
+    );
+    if (this.operation != null) {
+      this.previousOperandElement.innerText = `${this.getDisplayNumber(
+        this.previousOperand
+      )} ${this.operation}`;
     } else {
-      calculator.displayValue =
-        displayValue === "0" ? digit : displayValue + digit;
+      this.previousOperandElement.innerText = "";
     }
   }
 
-  function inputDecimal(dot) {
-    if (calculator.waitingForSecondOperand === true) {
-      calculator.displayValue = "0.";
-      calculator.waitingForSecondOperand = false;
-      return;
-    }
-
-    if (!calculator.displayValue.includes(dot)) {
-      calculator.displayValue += dot;
-    }
-  }
-
-  function handleOperator(nextOperator) {
-    const { firstOperand, displayValue, operator } = calculator;
-    const inputValue = parseFloat(displayValue);
-
-    if (operator && calculator.waitingForSecondOperand) {
-      calculator.operator = nextOperator;
-      return;
-    }
-
-    if (firstOperand === null && !isNaN(inputValue)) {
-      calculator.firstOperand = inputValue;
-    } else if (operator) {
-      const result = calculate(firstOperand, inputValue, operator);
-      calculator.displayValue = `${parseFloat(result.toFixed(7))}`;
-      calculator.firstOperand = result;
-    }
-
-    calculator.waitingForSecondOperand = true;
-    calculator.operator = nextOperator;
-  }
-
-  function calculate(firstOperand, secondOperand, operator) {
-    if (operator === "+") {
-      return firstOperand + secondOperand;
-    } else if (operator === "-") {
-      return firstOperand - secondOperand;
-    } else if (operator === "×") {
-      return firstOperand * secondOperand;
-    } else if (operator === "÷") {
-      return firstOperand / secondOperand;
-    }
-
-    return secondOperand;
-  }
-
-  function resetCalculator() {
-    calculator.displayValue = "0";
-    calculator.firstOperand = null;
-    calculator.waitingForSecondOperand = false;
-    calculator.operator = null;
-  }
-
-  function updatePreviousOperand() {
-    const previousOperandDisplay = document.querySelector(".previous-operand");
-    if (calculator.firstOperand !== null && calculator.operator) {
-      previousOperandDisplay.textContent = `${calculator.firstOperand} ${calculator.operator}`;
+  getDisplayNumber(number) {
+    const stringNumber = number.toString();
+    const integerDigits = parseFloat(stringNumber.split(".")[0]);
+    const decimalDigits = stringNumber.split(".")[1];
+    let integerDisplay;
+    if (isNaN(integerDigits)) {
+      integerDisplay = "";
     } else {
-      previousOperandDisplay.textContent = "";
+      integerDisplay = integerDigits.toLocaleString("en", {
+        maximumFractionDigits: 0,
+      });
+    }
+    if (decimalDigits != null) {
+      return `${integerDisplay}.${decimalDigits}`;
+    } else {
+      return integerDisplay;
     }
   }
+}
 
-  function handleKeypad(target) {
-    if (!target.matches("button")) {
-      return;
-    }
+const numberButtons = document.querySelectorAll("[data-digit]");
+const operationButtons = document.querySelectorAll("[data-action]");
+const previousOperandElement = document.querySelector(".previous-operand");
+const currentOperandElement = document.querySelector(".current-operand");
 
-    if (target.classList.contains("digit")) {
-      inputDigit(target.textContent);
-      updateDisplay();
-      return;
-    }
+const calculator = new Calculator(
+  previousOperandElement,
+  currentOperandElement
+);
 
-    if (target.classList.contains("function")) {
-      const action = target.dataset.action;
-      if (action === "clear") {
-        resetCalculator();
-      } else if (action === "toggle-sign") {
-        calculator.displayValue = (
-          parseFloat(calculator.displayValue) * -1
-        ).toString();
-      } else if (action === "percentage") {
-        calculator.displayValue = (
-          parseFloat(calculator.displayValue) / 100
-        ).toString();
-      } else if (action === "backspace") {
-        calculator.displayValue = calculator.displayValue.slice(0, -1) || "0";
-      }
-      updateDisplay();
-      return;
-    }
-
-    if (target.classList.contains("operator")) {
-      const action = target.dataset.action;
-      if (action === "equals") {
-        handleOperator(null);
-      } else {
-        handleOperator(target.textContent);
-      }
-      updateDisplay();
-      updatePreviousOperand();
-      return;
-    }
-
-    if (target.textContent === ".") {
-      inputDecimal(target.textContent);
-      updateDisplay();
-      return;
-    }
-  }
-
-  const keypad = document.querySelector(".keypad");
-  keypad.addEventListener("click", (event) => {
-    handleKeypad(event.target);
+numberButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    calculator.appendNumber(button.innerText);
+    calculator.updateDisplay();
   });
+});
 
-  const themeToggle = document.getElementById("theme-toggle");
-  themeToggle.addEventListener("change", () => {
-    document.body.classList.toggle("light-theme");
+operationButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    switch (button.dataset.action) {
+      case "add":
+      case "subtract":
+      case "multiply":
+      case "divide":
+        calculator.chooseOperation(button.innerText);
+        break;
+      case "clear":
+        calculator.clear();
+        break;
+      case "calculate":
+        calculator.compute();
+        break;
+    }
+    calculator.updateDisplay();
   });
+});
+
+document.getElementById("theme-toggle").addEventListener("change", function () {
+  document.body.classList.toggle("light-theme");
 });
