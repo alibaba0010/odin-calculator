@@ -4,46 +4,45 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Calculator</title>
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://unpkg.com/lucide@latest"></script>
   </head>
   <body>
     <div class="calculator">
-      <div class="display">
-        <!-- <div id="display"></div> -->
-        <input type="text" value="0" name="display" id="display" />
+      <div class="toggle-container">
+        <label class="switch">
+          <input type="checkbox" id="theme-toggle" title="toggle"/>
+          <span class="slider round"></span>
+        </label>
+        <i data-lucide="moon"></i>
       </div>
-      <div class="buttons">
-        <div class="calc-btns">
-          <button class="btn clear">AC</button>
-          <button class="btn del" id="backspace">DEL</button>
-
-          <button class="btn operator" data-operator="/">/</button>
-          <button class="btn operator" data-operator="%">%</button>
-        </div>
-        <div class="calc-btns">
-          <button class="btn no">7</button>
-          <button class="btn no">8</button>
-          <button class="btn no">9</button>
-          <button class="btn operator" data-operator="*">*</button>
-        </div>
-        <div class="calc-btns">
-          <button class="btn no">4</button>
-          <button class="btn no">5</button>
-          <button class="btn no">6</button>
-          <button class="btn operator" data-operator="-">-</button>
-        </div>
-        <div class="calc-btns">
-          <button class="btn no">1</button>
-          <button class="btn no">2</button>
-          <button class="btn no">3</button>
-          <button class="btn operator" data-operator="+">+</button>
-        </div>
-
-        <div class="calc-btns">
-          <button class="btn">0</button>
-          <button class="btn">.</button>
-          <button class="btn equals">=</button>
-        </div>
+      <div class="display">
+        <div class="previous-operand"></div>
+        <div class="current-operand">0</div>
+      </div>
+      <div class="keypad">
+        <button class="function" data-action="clear">C</button>
+        <button class="function" data-action="toggle-sign">+/-</button>
+        <button class="function" data-action="percentage">%</button>
+        <button class="operator" data-action="divide">÷</button>
+        <button class="digit">7</button>
+        <button class="digit">8</button>
+        <button class="digit">9</button>
+        <button class="operator" data-action="multiply">×</button>
+        <button class="digit">4</button>
+        <button class="digit">5</button>
+        <button class="digit">6</button>
+        <button class="operator" data-action="subtract">-</button>
+        <button class="digit">1</button>
+        <button class="digit">2</button>
+        <button class="digit">3</button>
+        <button class="operator" data-action="add">+</button>
+        <button class="digit">.</button>
+        <button class="digit">0</button>
+        <button class="function" data-action="backspace" title="backspace>
+          <i data-lucide="delete"></i>
+        </button>
+        <button class="operator" data-action="equals">=</button>
       </div>
     </div>
     <script src="script.js"></script>
