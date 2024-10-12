@@ -10,6 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let display = document.querySelector(".current-operand");
   let previousOperandDisplay = document.querySelector(".previous-operand");
+
   function updateDisplay() {
     display.textContent = calculator.displayValue;
   }
@@ -45,6 +46,7 @@ document.addEventListener("DOMContentLoaded", () => {
   function handleOperator(nextOperator) {
     const { firstOperand, displayValue, operator } = calculator;
     const inputValue = parseFloat(displayValue);
+
     if (operator && calculator.waitingForSecondOperand) {
       calculator.operator = nextOperator;
       return;
@@ -60,6 +62,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     calculator.waitingForSecondOperand = true;
     calculator.operator = nextOperator;
+    calculator.displayValue = "0"; // Set display to "0" when operator is clicked
   }
 
   function calculate(firstOperand, secondOperand, operator) {

@@ -9,6 +9,7 @@ body {
   background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
   background-size: 400% 400%;
   animation: gradientBG 15s ease infinite;
+  transition: background 0.3s ease;
 }
 
 @keyframes gradientBG {
@@ -30,6 +31,7 @@ body {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   max-width: 300px;
   width: 100%;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .toggle-container {
@@ -91,18 +93,21 @@ input:checked + .slider:before {
   padding: 20px;
   margin-bottom: 20px;
   text-align: right;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .previous-operand {
   color: #8e8e93;
   font-size: 18px;
   margin-bottom: 5px;
+  transition: color 0.3s ease;
 }
 
 .current-operand {
   color: #ffffff;
   font-size: 36px;
   font-weight: bold;
+  transition: color 0.3s ease;
 }
 
 .keypad {
@@ -117,7 +122,7 @@ button {
   font-size: 24px;
   height: 60px;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: background-color 0.3s, color 0.3s;
 }
 
 .digit,
@@ -143,4 +148,42 @@ button:active {
   width: 24px;
   height: 24px;
   color: #ffffff;
+  transition: color 0.3s ease;
+}
+
+/* Light theme styles */
+body.light-theme {
+  background: linear-gradient(-45deg, #f6d365, #fda085, #f6d365, #fda085);
+}
+
+body.light-theme .calculator {
+  background-color: #f0f0f0;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+body.light-theme .display {
+  background-color: #ffffff;
+}
+
+body.light-theme .previous-operand {
+  color: #666666;
+}
+
+body.light-theme .current-operand {
+  color: #000000;
+}
+
+body.light-theme .digit,
+body.light-theme .function {
+  background-color: #e0e0e0;
+  color: #000000;
+}
+
+body.light-theme .operator {
+  background-color: #4b6eaf;
+  color: #ffffff;
+}
+
+body.light-theme .lucide {
+  color: #000000;
 }
