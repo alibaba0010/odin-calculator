@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calculator</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://unpkg.com/lucide@latest"></script>
+  </head>
+  <body>
+    <div class="calculator">
+      <div class="toggle-container">
+        <label class="switch">
+          <input type="checkbox" id="theme-toggle" />
+          <span class="slider round"></span>
+        </label>
+        <i data-lucide="moon"></i>
+      </div>
+      <div class="display">
+        <div class="previous-operand">6,291÷5</div>
+        <div class="current-operand">1,258.2</div>
+      </div>
+      <div class="keypad">
+        <button class="function" data-action="clear">C</button>
+        <button class="function" data-action="toggle-sign">+/-</button>
+        <button class="function" data-action="percentage">%</button>
+        <button class="operator" data-action="divide">÷</button>
+        <button class="digit">7</button>
+        <button class="digit">8</button>
+        <button class="digit">9</button>
+        <button class="operator" data-action="multiply">×</button>
+        <button class="digit">4</button>
+        <button class="digit">5</button>
+        <button class="digit">6</button>
+        <button class="operator" data-action="subtract">-</button>
+        <button class="digit">1</button>
+        <button class="digit">2</button>
+        <button class="digit">3</button>
+        <button class="operator" data-action="add">+</button>
+        <button class="digit">.</button>
+        <button class="digit">0</button>
+        <button class="function" data-action="backspace">
+          <i data-lucide="delete"></i>
+        </button>
+        <button class="operator" data-action="equals">=</button>
+      </div>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
