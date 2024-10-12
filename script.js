@@ -11,11 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const display = document.querySelector(".current-operand");
   let previousOperandDisplay = document.querySelector(".previous-operand");
   function updateDisplay() {
-    if (display.textContent.length <= 11) {
-      display.textContent = calculator.displayValue;
-    } else {
-      return;
-    }
+    display.textContent = calculator.displayValue;
   }
 
   function inputDigit(digit) {
@@ -23,11 +19,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (waitingForSecondOperand === true) {
       calculator.displayValue = digit;
-      console.log("Display value: ", calculator.displayValue);
       calculator.waitingForSecondOperand = false;
     } else {
-      calculator.displayValue =
-        displayValue === "0" ? digit : displayValue + digit;
+      if (calculator.displayValue.length <= 10) {
+        calculator.displayValue =
+          displayValue === "0" ? digit : displayValue + digit;
+      } else {
+        return;
+      }
     }
   }
 
