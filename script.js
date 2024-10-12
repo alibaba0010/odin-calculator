@@ -60,6 +60,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     calculator.waitingForSecondOperand = true;
     calculator.operator = nextOperator;
+    if (nextOperator !== null) {
+      calculator.displayValue = "0";
+    }
   }
 
   function calculate(firstOperand, secondOperand, operator) {
